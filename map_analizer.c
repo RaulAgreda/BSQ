@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 17:47:59 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 19:59:17 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:26:33 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,43 +22,17 @@
 //3º 
 
 #include "functions.h"
-#include <unistd.h>
 
-int	show_error(void)
-{
-	write(1, "map error\n", 10);
-	return (-1);
-}
+int	show_error(void);
+int	line_length(char *str);
+int	count_nl(t_file *file);
 
-int	line_length(char *str)
-{
-	int	count;
-
-	count = 0;
-	while (str[count] != '\n')
-		count++;
-	return (count);
-}
-
-int	count_nl(t_file *file)
-{
-	int i;
-	int count;
-
-	count = 0;
-	i = 0;
-	while (i < file->size)
-	{
-		if ((file->data)[i] == '\n')
-			count++;
-		i++;
-	}
-	return (count);
-}
+//QUEDA COMPROBAR QUE LOS CARACTERES DEL MAPA COINCIDEN CON LOS DE LA PRIMERA FILA
 
 int	check_printable(t_file *file)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (i < file->size)
 	{
@@ -78,7 +52,7 @@ int	check_first_line(t_file *file, t_map_p *map)
 	while ((file->data)[i] != '\n')
 		if (i >= file->size)
 			return (-1);
-		else
+	else
 			i++;
 	if (i < 4)
 		return (-1);
@@ -120,8 +94,8 @@ int	check_lines_length(t_file *file)
 int	check_map(t_file *file, t_map_p *map)
 {
 	if ((check_printable(file) < 0)
-	|| (check_first_line(file, map) < 0)
-	|| (count_nl(file) != map->lines + 1))
+		|| (check_first_line(file, map) < 0)
+		|| (count_nl(file) != map->lines + 1))
 		return (show_error());
 	map->columns = check_lines_length(file);
 	if (map->columns < 1)

@@ -1,30 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map_analizer2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/29 10:37:26 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:38:37 by ragreda-         ###   ########.fr       */
+/*   Created: 2022/08/29 20:04:44 by ragreda-          #+#    #+#             */
+/*   Updated: 2022/08/29 20:08:04 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "functions.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
-char	get_mchar(int i, int j, t_map_p map);
 
-int	main(int argc, char **argv)
+int	show_error(void)
 {
-	t_map_p map;
-	t_file *file;
+	write(1, "map error\n", 10);
+	return (-1);
+}
 
-	file = get_file(argv[1]);
-	check_map(file, &map);
-	printf("lines: %d\ncolumns: %d\nc_e: %c\nc_o: %c\nc_f: %c\n", map.lines, map.columns, map.c_e, map.c_o, map.c_f);
-	extract_map(file, &map);
-	get_solution(map);
-	return (0);
+int	line_length(char *str)
+{
+	int	count;
+
+	count = 0;
+	while (str[count] != '\n')
+		count++;
+	return (count);
+}
+
+int	count_nl(t_file *file)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (i < file->size)
+	{
+		if ((file->data)[i] == '\n')
+			count++;
+		i++;
+	}
+	return (count);
 }

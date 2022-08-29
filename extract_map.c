@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/29 10:37:26 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:38:37 by ragreda-         ###   ########.fr       */
+/*   Created: 2022/08/29 20:10:12 by ragreda-          #+#    #+#             */
+/*   Updated: 2022/08/29 20:30:43 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "functions.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-char	get_mchar(int i, int j, t_map_p map);
 
-int	main(int argc, char **argv)
+void	extract_map(t_file *file, t_map_p *map)
 {
-	t_map_p map;
-	t_file *file;
+    int	size;
+	int	f;
+    int	i;
 
-	file = get_file(argv[1]);
-	check_map(file, &map);
-	printf("lines: %d\ncolumns: %d\nc_e: %c\nc_o: %c\nc_f: %c\n", map.lines, map.columns, map.c_e, map.c_o, map.c_f);
-	extract_map(file, &map);
-	get_solution(map);
-	return (0);
+	f = 0;
+	while ((file->data)[f] != '\n')
+		f++;
+	i = 0;
+	size = map->lines * map->columns;
+	map->map = malloc(sizeof(char) * size);
+	while (i < size)
+	{
+		if ((file->data)[f] != '\n')
+		{
+			(map->map)[i] = (file->data)[f];
+			i++;
+		}
+		f++;
+	}
 }
