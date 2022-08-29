@@ -27,35 +27,70 @@ t_square	*initialize_square(void)
 	return (sq);
 }
 
-t_square	get_sq(int index, int dim)
+int	mtoa(int i, int j, t_map_p *map)
 {
-	t_square	sq;
-
-	sq.index = index;
-	sq.dim = dim;
-	return (sq);
+	return (i * map->columns + j);
 }
 
-int	mtoa(int i, int j, t_map_p map)
+char	get_mchar(int i, int j, t_map_p *map)
 {
-	return (i * map.columns + j);
+	return ((map->map)[i * map->columns + j]);
 }
 
-char	get_mchar(int i, int j, t_map_p map)
+int	get_line(int i, t_map_p *map)
 {
-	return map.map[i * map.columns + j];
+	return (i / map->columns); 
 }
 
-int	get_line(int i, t_map_p map)
+int	get_column(int i, t_map_p *map)
 {
-	return (i / map.columns); 
+	return (i % map->columns);
 }
 
-int	get_column(int i, t_map_p map)
+int	check_next_size(int idx, t_map_p *map, int size)
 {
-	return (i % map.columns);
+	int line;
+	int col;
+	int	i;
+	int	j;
+
+	line = get_line(idx, map);
+	col = get_column(idx, map);
+	if (size == 1)
+		return (get_mchar(line, col, map) == map->c_e);
+	if (line + size > map->lines || col + size > map->columns)
+		return (0);
+	i = 0;
+	while (i < size)
+	{
+		if (i < size - 1)
+			j = size - 1;
+		else
+			j = 0;
+		while (j < size)
+		{
+			if (get_mchar(line + i, col + j, map) == map->c_o)
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
+int	get_sq(int idx, t_map_p *map)
+{
+	int	size;
+
+	if ((map->map)[idx] == map->c_o)
+		return (0);
+	size = 1;
+	while (check_next_size(idx, map, size))
+		size++;
+	return (size - 1);
+}
+
+/*
 t_square	get_next_sq(int idx, t_square sq, t_map_p map)
 {
 	int i;
@@ -110,8 +145,8 @@ t_square	get_next_sq(int idx, t_square sq, t_map_p map)
 	}
 	return (sq);
 }
-
-void	print_solution(t_square sq, t_map_p map)
+*/
+void	print_solution(t_square sq, t_map_p *map)
 {
 	int		i;
 	int		j;
@@ -120,14 +155,14 @@ void	print_solution(t_square sq, t_map_p map)
 	char	c;
 
 	i = 0;
-	while (i < map.lines)
+	while (i < map->lines)
 	{
 		j = 0;
-		while (j < map.columns)
+		while (j < map->columns)
 		{
 			if (i >= line && i < line + sq.dim
 			&& j >= column && j < column + sq.dim)
-				c = map.c_f;
+				c = map->c_f;
 			else
 				c =	get_mchar(i, j, map);
 			write(1, &c, 1);
@@ -138,16 +173,23 @@ void	print_solution(t_square sq, t_map_p map)
 	}
 }
 
-void	get_solution(t_map_p map)
+void	get_solution(t_map_p *map)
 {
 	t_square	*sq;
 	int			idx;
+	int			size;
 
 	sq = initialize_square();
+	
 	idx = 0;
-	while (idx < map.lines * map.columns)
+	while (idx < map->lines * map->columns)
 	{
-		*sq = get_next_sq(idx, *sq, map);
+		size = get_sq(idx, map);
+		if (size > sq->dim)
+		{
+			sq->dim = size;
+			sq->index = idx;
+		}
 		idx++;
 	}
 	print_solution(*sq, map);

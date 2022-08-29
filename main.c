@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-char	get_mchar(int i, int j, t_map_p map);
+char	get_mchar(int i, int j, t_map_p *map);
 
 int	main(int argc, char **argv)
 {
@@ -27,6 +27,12 @@ int	main(int argc, char **argv)
 	check_map(file, &map);
 	printf("lines: %d\ncolumns: %d\nc_e: %c\nc_o: %c\nc_f: %c\n", map.lines, map.columns, map.c_e, map.c_o, map.c_f);
 	extract_map(file, &map);
-	get_solution(map);
+	for (int i = 0; i < map.lines * map.columns; i++)
+	{
+		write(1, map.map + i, 1);
+		if (i % map.columns == map.columns - 1)
+			write(1, "\n", 1);
+	}
+	get_solution(&map);
 	return (0);
 }

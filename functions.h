@@ -37,7 +37,7 @@ typedef struct s_square
 	int	dim;
 }		t_square;
 void	extract_map(t_file *file, t_map_p *map);
-void	get_solution(t_map_p map);
+void	get_solution(t_map_p *map);
 t_file	*get_file(char *file_name);
 int		check_map(t_file *file, t_map_p *map);
 int		ft_atoi(char *str, int size);
