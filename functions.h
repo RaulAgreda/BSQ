@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 10:55:15 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:32:19 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:13:44 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,15 @@ typedef struct s_square
 	int	index;
 	int	dim;
 }		t_square;
-void	extract_map(t_file *file, t_map_p *map);
+int		extract_map(t_file *file, t_map_p *map);
 void	get_solution(t_map_p *map);
 t_file	*get_file(char *file_name);
 int		check_map(t_file *file, t_map_p *map);
 int		ft_atoi(char *str, int size);
 int		ft_isspace(char c);
+int		mtoa(int i, int j, t_map_p *map);
+char	get_mchar(int i, int j, t_map_p *map);
+int		get_line(int i, t_map_p *map);
+int		get_column(int i, t_map_p *map);
+int		show_error(void);
 #endif

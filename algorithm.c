@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 12:50:35 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/30 11:38:27 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:58:38 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,6 @@ t_square	*initialize_square(void)
 	sq->dim = 0;
 	sq->index = 0;
 	return (sq);
-}
-
-int	mtoa(int i, int j, t_map_p *map)
-{
-	return (i * map->columns + j);
-}
-
-char	get_mchar(int i, int j, t_map_p *map)
-{
-	return ((map->map)[i * map->columns + j]);
-}
-
-int	get_line(int i, t_map_p *map)
-{
-	return (i / map->columns);
-}
-
-int	get_column(int i, t_map_p *map)
-{
-	return (i % map->columns);
 }
 
 int	check_next_size(int idx, t_map_p *map, int size)
@@ -85,25 +65,27 @@ int	get_sq(int idx, t_map_p *map)
 	return (size - 1);
 }
 
-void	print_solution(t_square sq, t_map_p *map)
+void	print_solution(t_square *sq, t_map_p *map)
 {
 	int		i;
 	int		j;
-	int		line = get_line(sq.index, map);
-	int		column = get_column(sq.index, map);
+	int		line;
+	int		column;
 	char	c;
 
+	line = get_line(sq->index, map);
+	column = get_column(sq->index, map);
 	i = 0;
 	while (i < map->lines)
 	{
 		j = 0;
 		while (j < map->columns)
 		{
-			if (i >= line && i < line + sq.dim
-			&& j >= column && j < column + sq.dim)
+			if (i >= line && i < line + sq->dim
+				&& j >= column && j < column + sq->dim)
 				c = map->c_f;
 			else
-				c =	get_mchar(i, j, map);
+				c = get_mchar(i, j, map);
 			write(1, &c, 1);
 			j++;
 		}
@@ -122,7 +104,8 @@ void	get_solution(t_map_p *map)
 	idx = 0;
 	while (idx < map->lines * map->columns)
 	{
-		if (get_line(idx, map) + sq->dim < map->lines && get_column(idx, map) + sq->dim < map->columns)
+		if (get_line(idx, map) + sq->dim < map->lines
+			&& get_column(idx, map) + sq->dim < map->columns)
 		{
 			size = get_sq(idx, map);
 			if (size > sq->dim)
@@ -133,6 +116,6 @@ void	get_solution(t_map_p *map)
 		}
 		idx++;
 	}
-	print_solution(*sq, map);
+	print_solution(sq, map);
 	free(sq);
 }

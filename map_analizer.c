@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 17:47:59 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:26:33 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:05:42 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 #include "functions.h"
 
-int	show_error(void);
 int	line_length(char *str);
 int	count_nl(t_file *file);
 
