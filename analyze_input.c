@@ -37,11 +37,11 @@ t_file	*analyze_input(void)
 	int		fd;
 	int		ret;
 
-	fd = open(".stdin.txt", O_RDWR | O_CREAT, 0666);
+	fd = open(".stdin.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	while ((ret = read(0, buf, 1024)) > 0)
 	{
 		write(fd, buf, ret);
 	}
 	close(fd);
-	return (get_file("./.stdin.txt"));
+	return (get_file(".stdin.txt"));
 }

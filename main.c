@@ -27,7 +27,7 @@ void	start(t_file *file, t_map_p *map)
 
 void	leaks(void)
 {
-	system("leaks bsq");
+	system("leaks -q bsq");
 }
 
 int	main(int argc, char **argv)
