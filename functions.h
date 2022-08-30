@@ -38,7 +38,6 @@ typedef struct s_square
 }		t_square;
 int		extract_map(t_file *file, t_map_p *map);
 void	get_solution(t_map_p *map);
-t_file	*get_file(char *file_name);
 int		check_map(t_file *file, t_map_p *map);
 int		ft_atoi(char *str, int size);
 int		ft_isspace(char c);
@@ -47,4 +46,6 @@ char	get_mchar(int i, int j, t_map_p *map);
 int		get_line(int i, t_map_p *map);
 int		get_column(int i, t_map_p *map);
 int		show_error(void);
+t_file	*get_file(char *file_name);
+t_file	*analyze_input(void);
 #endif

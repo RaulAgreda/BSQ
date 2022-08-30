@@ -12,6 +12,8 @@
 
 #include <stdlib.h>
 #include "functions.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 char	*ft_char_realloc(char *pointer, int old_size, int new_size)
 {
@@ -29,12 +31,17 @@ char	*ft_char_realloc(char *pointer, int old_size, int new_size)
 	return (new_p);
 }
 
-t_file	*fake_file(void)
+t_file	*analyze_input(void)
 {
-	t_file	*file;
-	int		size;
+	char	buf[1024];
+	int		fd;
+	int		ret;
 
-	size = 1;
-
-	return (0);
+	fd = open(".stdin.txt", O_RDWR | O_CREAT, 0666);
+	while ((ret = read(0, buf, 1024)) > 0)
+	{
+		write(fd, buf, ret);
+	}
+	close(fd);
+	return (get_file("./.stdin.txt"));
 }

@@ -15,8 +15,25 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void	start(t_file *file, t_map_p *map)
+{
+	if (check_map(file, map) == 0)
+	{
+		if (extract_map(file, map) == 0)
+			get_solution(map);
+		free(map->map);
+	}
+}
+
+void	leaks(void)
+{
+	system("leaks bsq");
+}
+
 int	main(int argc, char **argv)
 {
+	atexit(leaks);
+
 	t_map_p	map;
 	t_file	*file;
 	int		i;
@@ -27,18 +44,14 @@ int	main(int argc, char **argv)
 		while (i < argc)
 		{
 			file = get_file(argv[i]);
-			if (check_map(file, &map) == 0)
-			{
-				if (extract_map(file, &map) == 0)
-					get_solution(&map);
-				free(map.map);
-			}
+			start(file, &map);
 			i++;
 		}
 	}
 	else
 	{
-		
+		file = analyze_input();
+		start(file, &map);
 	}
 	//system("leaks bsq");
 	exit(0);

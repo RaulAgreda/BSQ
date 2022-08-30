@@ -8,7 +8,7 @@ NAME		= bsq
 
 CC			= gcc
 
-.PHONY:		= all clean fclean re
+.PHONY		= all clean fclean re
 
 all:		${NAME}
 
