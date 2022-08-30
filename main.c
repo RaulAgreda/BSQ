@@ -24,15 +24,11 @@ int	main(int argc, char **argv)
 	t_file *file;
 
 	file = get_file(argv[1]);
-	check_map(file, &map);
-	printf("lines: %d\ncolumns: %d\nc_e: %c\nc_o: %c\nc_f: %c\n", map.lines, map.columns, map.c_e, map.c_o, map.c_f);
-	extract_map(file, &map);
-	for (int i = 0; i < map.lines * map.columns; i++)
+	if (check_map(file, &map) == 0)
 	{
-		write(1, map.map + i, 1);
-		if (i % map.columns == map.columns - 1)
-			write(1, "\n", 1);
+		printf("lines: %d\ncolumns: %d\nc_e: %c\nc_o: %c\nc_f: %c\n", map.lines, map.columns, map.c_e, map.c_o, map.c_f);
+		extract_map(file, &map);
+		get_solution(&map);
 	}
-	get_solution(&map);
 	return (0);
 }

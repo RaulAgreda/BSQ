@@ -180,19 +180,23 @@ void	get_solution(t_map_p *map)
 	int			size;
 
 	sq = initialize_square();
-	
 	idx = 0;
+	int iter = 0;
 	while (idx < map->lines * map->columns)
 	{
-		size = get_sq(idx, map);
-		if (size > sq->dim)
+		if (get_line(idx, map) + sq->dim < map->lines && get_column(idx, map) + sq->dim < map->columns)
 		{
-			sq->dim = size;
-			sq->index = idx;
+			iter++;
+			size = get_sq(idx, map);
+			if (size > sq->dim)
+			{
+				sq->dim = size;
+				sq->index = idx;
+			}
 		}
 		idx++;
 	}
 	print_solution(*sq, map);
-	printf("idx: %d dim: %d\n", sq->index, sq->dim);
+	printf("iter: %d idx: %d dim: %d\n", iter, sq->index, sq->dim);
 	free(sq);
 }
