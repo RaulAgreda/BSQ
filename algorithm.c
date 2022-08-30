@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 12:50:35 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 17:31:18 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:38:27 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <stdio.h>
-
-
 t_square	*initialize_square(void)
 {
-	t_square *sq;
+	t_square	*sq;
 
 	sq = malloc(sizeof(t_square));
 	sq->dim = 0;
@@ -39,7 +36,7 @@ char	get_mchar(int i, int j, t_map_p *map)
 
 int	get_line(int i, t_map_p *map)
 {
-	return (i / map->columns); 
+	return (i / map->columns);
 }
 
 int	get_column(int i, t_map_p *map)
@@ -49,15 +46,13 @@ int	get_column(int i, t_map_p *map)
 
 int	check_next_size(int idx, t_map_p *map, int size)
 {
-	int line;
-	int col;
+	int	line;
+	int	col;
 	int	i;
 	int	j;
 
 	line = get_line(idx, map);
 	col = get_column(idx, map);
-	if (size == 1)
-		return (get_mchar(line, col, map) == map->c_e);
 	if (line + size > map->lines || col + size > map->columns)
 		return (0);
 	i = 0;
@@ -84,68 +79,12 @@ int	get_sq(int idx, t_map_p *map)
 
 	if ((map->map)[idx] == map->c_o)
 		return (0);
-	size = 1;
+	size = 2;
 	while (check_next_size(idx, map, size))
 		size++;
 	return (size - 1);
 }
 
-/*
-t_square	get_next_sq(int idx, t_square sq, t_map_p map)
-{
-	int i;
-	int j;
-	int start_i = get_line(idx, map);
-	int start_j = get_column(idx, map);
-	int cont;
-	int shortest;
-
-	if (get_mchar(start_i, start_j, map) == map.c_o)
-		return (sq);
-	//empties Primera linea
-	shortest = 0;
-	j = 0;
-	while (j + start_j < map.columns)
-	{
-		if(get_mchar(start_i, j + start_j, map) == map.c_e)
-			shortest++;
-		else
-			break;
-		j++;
-	}
-	i = 1;
-	while (i + start_i < map.lines)
-	{
-		if (i >= shortest)
-		{
-			if (shortest > sq.dim)
-				return (get_sq(idx, shortest));
-			else
-				return (sq);
-		}
-		cont = 0;
-		j = 0;
-		while (j + start_j < map.columns)
-		{
-			if (get_mchar(i + start_i, j + start_j, map) == map.c_e)
-			{
-				cont++;
-			}
-			else
-				break;
-			j++;
-		}
-		if (cont < sq.dim)
-			return (sq);
-		if (cont < shortest)
-		{
-			shortest = cont;
-		}
-		i++;
-	}
-	return (sq);
-}
-*/
 void	print_solution(t_square sq, t_map_p *map)
 {
 	int		i;
@@ -181,12 +120,10 @@ void	get_solution(t_map_p *map)
 
 	sq = initialize_square();
 	idx = 0;
-	int iter = 0;
 	while (idx < map->lines * map->columns)
 	{
 		if (get_line(idx, map) + sq->dim < map->lines && get_column(idx, map) + sq->dim < map->columns)
 		{
-			iter++;
 			size = get_sq(idx, map);
 			if (size > sq->dim)
 			{
@@ -197,6 +134,5 @@ void	get_solution(t_map_p *map)
 		idx++;
 	}
 	print_solution(*sq, map);
-	printf("iter: %d idx: %d dim: %d\n", iter, sq->index, sq->dim);
 	free(sq);
 }

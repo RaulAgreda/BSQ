@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 10:37:26 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:41:45 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:35:45 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,27 @@ char	get_mchar(int i, int j, t_map_p *map);
 
 int	main(int argc, char **argv)
 {
-	if (argc == 0)
-		return (-1);
-	t_map_p map;
-	t_file *file;
+	t_map_p	map;
+	t_file	*file;
+	int		i;
 
-	file = get_file(argv[1]);
-	if (check_map(file, &map) == 0)
+	if (argc > 1)
 	{
-		printf("lines: %d\ncolumns: %d\nc_e: %c\nc_o: %c\nc_f: %c\n", map.lines, map.columns, map.c_e, map.c_o, map.c_f);
-		extract_map(file, &map);
-		get_solution(&map);
+		i = 1;
+		while (i < argc)
+		{
+			file = get_file(argv[i]);
+			if (check_map(file, &map) == 0)
+			{
+				extract_map(file, &map);
+				free(file->data);
+				free(file);
+				get_solution(&map);
+				free(map.map);
+			}
+			i++;
+		}
 	}
-	return (0);
+	//system("leaks bsq");
+	exit(0);
 }
