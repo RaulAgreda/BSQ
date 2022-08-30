@@ -42,14 +42,20 @@ int	main(int argc, char **argv)
 		while (i < argc)
 		{
 			file = get_file(argv[i]);
-			start(file, &map);
+			if (file == NULL)
+				show_error();
+			else
+				start(file, &map);
 			i++;
 		}
 	}
 	else
 	{
 		file = read_stdin();
-		start(file, &map);
+		if (file == NULL)
+			show_error();
+		else
+			start(file, &map);
 	}
 	exit(0);
 }

@@ -43,7 +43,7 @@ t_file	*get_file(char *file_name)
 	if (size < 0)
 	{
 		free(file);
-		return (0);
+		return (NULL);
 	}
 	buffer = malloc(sizeof(char) * size);
 	fd = open(file_name, O_RDONLY);
