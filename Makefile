@@ -1,4 +1,4 @@
-SRCS		= algorithm.c extract_map.c ft_atoi.c main.c map_analizer.c map_analizer2.c read_file.c matrix_funcs.c analyze_input.c
+SRCS		= algorithm.c extract_map.c ft_atoi.c main.c map_analizer.c map_analizer2.c read_file.c matrix_funcs.c
 
 OBJS		= ${SRCS:.c=.o}
 

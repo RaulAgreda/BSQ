@@ -53,3 +53,18 @@ t_file	*get_file(char *file_name)
 	file->size = size;
 	return (file);
 }
+
+t_file	*read_stdin(void)
+{
+	char	buf[1024];
+	int		fd;
+	int		ret;
+
+	fd = open(".stdin.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	while ((ret = read(0, buf, 1024)) > 0)
+	{
+		write(fd, buf, ret);
+	}
+	close(fd);
+	return (get_file(".stdin.txt"));
+}

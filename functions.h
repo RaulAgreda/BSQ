@@ -47,5 +47,5 @@ int		get_line(int i, t_map_p *map);
 int		get_column(int i, t_map_p *map);
 int		show_error(void);
 t_file	*get_file(char *file_name);
-t_file	*analyze_input(void);
+t_file	*read_stdin(void);
 #endif

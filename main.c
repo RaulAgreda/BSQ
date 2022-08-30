@@ -32,8 +32,6 @@ void	leaks(void)
 
 int	main(int argc, char **argv)
 {
-	atexit(leaks);
-
 	t_map_p	map;
 	t_file	*file;
 	int		i;
@@ -50,9 +48,8 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		file = analyze_input();
+		file = read_stdin();
 		start(file, &map);
 	}
-	//system("leaks bsq");
 	exit(0);
 }
