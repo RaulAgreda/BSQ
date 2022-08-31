@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 10:37:26 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/30 12:24:15 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:00:38 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	start(t_file *file, t_map_p *map)
+int	start(t_file *file, t_map_p *map)
 {
+	if (file == NULL)
+		return (show_error());
 	if (check_map(file, map) == 0)
 	{
 		if (extract_map(file, map) == 0)
 			get_solution(map);
 		free(map->map);
 	}
+	return (-1);
 }
 
 void	leaks(void)
@@ -42,20 +45,14 @@ int	main(int argc, char **argv)
 		while (i < argc)
 		{
 			file = get_file(argv[i]);
-			if (file == NULL)
-				show_error();
-			else
-				start(file, &map);
+			start(file, &map);
 			i++;
 		}
 	}
 	else
 	{
 		file = read_stdin();
-		if (file == NULL)
-			show_error();
-		else
-			start(file, &map);
+		start(file, &map);
 	}
 	exit(0);
 }

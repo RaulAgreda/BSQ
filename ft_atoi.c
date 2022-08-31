@@ -6,15 +6,9 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 10:38:46 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 19:27:27 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:33:24 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-int	ft_isspace(char c)
-{
-	return ((c == ' ' || c == '\n' || c == '\t'
-			|| c == '\f' || c == '\v' || c == '\r'));
-}
 
 int	ft_atoi(char *str, int size)
 {
@@ -23,12 +17,12 @@ int	ft_atoi(char *str, int size)
 
 	i = 0;
 	n = 0;
-	while (ft_isspace(str[i]))
-		i++;
 	while (str[i] >= '0' && str[i] <= '9' && i < size)
 	{
 		n = n * 10 + str[i] - '0';
 		i++;
 	}
+	if (i < size)
+		return (-1);
 	return (n);
 }

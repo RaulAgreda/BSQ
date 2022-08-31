@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:47:23 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/29 15:57:22 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/31 10:58:11 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ t_file	*read_stdin(void)
 {
 	char	buf[1024];
 	int		fd;
-	int		ret;
 
 	fd = open(".stdin.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
-	while ((ret = read(0, buf, 1024)) > 0)
+	while (read(0, buf, 1) > 0)
 	{
-		write(fd, buf, ret);
+		write(fd, buf, 1);
 	}
 	close(fd);
 	return (get_file(".stdin.txt"));

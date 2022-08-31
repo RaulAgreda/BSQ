@@ -6,27 +6,14 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 17:47:59 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/30 12:05:42 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:03:27 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//Analizar lineas mismo tamaño    <<<<
-//Al menos un cuadradito de 1x1   
-//Caracteres solamente los de la primera linea
-//Primera linea no puede faltar o haber repetidos.
-//Solo caracteres imprimibles
-//map error
-
-//1º checkear no printeables
-//2º primera linea
-//3º 
 
 #include "functions.h"
 
 int	line_length(char *str);
 int	count_nl(t_file *file);
-
-//QUEDA COMPROBAR QUE LOS CARACTERES DEL MAPA COINCIDEN CON LOS DE LA PRIMERA FILA
 
 int	check_printable(t_file *file)
 {
