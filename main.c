@@ -6,12 +6,11 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 10:37:26 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/31 11:00:38 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:58:04 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "functions.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -24,13 +23,23 @@ int	start(t_file *file, t_map_p *map)
 		if (extract_map(file, map) == 0)
 			get_solution(map);
 		free(map->map);
+		return (0);
 	}
-	return (-1);
+	return (show_error());
 }
 
 void	leaks(void)
 {
 	system("leaks -q bsq");
+}
+
+void	free_file(t_file *file)
+{
+	if (file != NULL)
+	{
+		free(file->data);
+		free(file);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -46,6 +55,7 @@ int	main(int argc, char **argv)
 		{
 			file = get_file(argv[i]);
 			start(file, &map);
+			free_file(file);
 			i++;
 		}
 	}
@@ -53,6 +63,7 @@ int	main(int argc, char **argv)
 	{
 		file = read_stdin();
 		start(file, &map);
+		free_file(file);
 	}
 	exit(0);
 }

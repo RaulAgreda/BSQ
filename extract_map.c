@@ -6,7 +6,7 @@
 /*   By: ragreda- <ragreda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:10:12 by ragreda-          #+#    #+#             */
-/*   Updated: 2022/08/30 12:17:57 by ragreda-         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:49:06 by ragreda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ int	extract_map(t_file *file, t_map_p *map)
 		}
 		f++;
 	}
-	free(file->data);
-	free(file);
 	return (check_map_chars(map));
 }
