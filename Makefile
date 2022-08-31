@@ -1,13 +1,10 @@
 SRCS		= algorithm.c extract_map.c ft_atoi.c main.c map_analizer.c map_analizer2.c read_file.c matrix_funcs.c
-
 OBJS		= ${SRCS:.c=.o}
-
 CFLAGS		= -Wall -Wextra -Werror
-
+DELINP		= .stdin.txt
 NAME		= bsq
-
 CC			= gcc
-
+RM			= rm -rf
 .PHONY		= all clean fclean re
 
 all:		${NAME}
@@ -19,10 +16,10 @@ ${NAME}:	${OBJS}
 			${CC} ${CFLAGS} -o ${NAME} ${OBJS}
 
 clean:	
-			rm ${OBJS}
+			${RM} ${OBJS} ${DELINP}
 
 fclean:		clean
-			rm -f ${NAME}
+			${RM} ${NAME}
 
 re:			fclean all
 
